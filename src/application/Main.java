@@ -1,7 +1,9 @@
 package application;
 
 import java.io.IOException;
+import java.text.ParseException;
 
+import gui.util.Utils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,8 +26,12 @@ public class Main extends Application {
 			mainScene = new Scene(scrollPane);
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("Aplicação");
+			Utils.setGlobalDateTime();
+			Utils.getGlobalDate();
+			Utils.oldDateTimetreatment();
+
 			primaryStage.show();
-		} catch (IOException e) {
+		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
 	}
