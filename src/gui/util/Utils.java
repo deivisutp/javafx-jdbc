@@ -1,5 +1,6 @@
 package gui.util;
 
+import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -184,5 +185,46 @@ public class Utils {
 
 		System.out.println(sdf2.format(d2));
 		System.out.println(min);
+	}
+
+	public void fileRead(String path) {
+	     try(BufferedReader br = new BufferedReader(new FileReader(path))) {
+	          String line = br.readLine();
+	          while (line != null) {
+				  System.out.println(line);
+				  line = br.readLine();
+			  }
+         }
+	     catch (FileNotFoundException e) {
+			 e.printStackTrace();
+		 } catch (IOException e) {
+			 e.printStackTrace();
+		 }
+	}
+
+	public void fileWrite(String path) {
+		String[] lines = new String[] {"Test", "Test2"};
+
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+			for (String line : lines) {
+				bw.write(line);
+				bw.newLine();
+			}
+		}
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getFolder(String path) {
+		File file = new File(path);
+		File[] folders = file.listFiles(File::isDirectory);
+
+		//subdir
+		System.out.println(new File(path + "\\").mkdir());
+
+		return file.getParent();
 	}
 }
