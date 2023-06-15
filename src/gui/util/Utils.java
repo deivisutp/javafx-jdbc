@@ -16,6 +16,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import model.entities.Car;
 
 public class Utils {
 
@@ -188,11 +189,20 @@ public class Utils {
 	}
 
 	public void fileRead(String path) {
+		List<Car> list = new ArrayList<>();
+
 	     try(BufferedReader br = new BufferedReader(new FileReader(path))) {
 	          String line = br.readLine();
 	          while (line != null) {
+				  String[] fields = line.split(",");
+	          	  list.add(new Car(fields[0]));
 				  System.out.println(line);
 				  line = br.readLine();
+			  }
+
+	          Collections.sort(list);
+	          for (Car car : list) {
+				  System.out.println(car.getModel());
 			  }
          }
 	     catch (FileNotFoundException e) {
