@@ -3,9 +3,15 @@ package model.entities;
 public class Car implements Comparable<Car> {
 
     private String model;
+    private Double value;
 
     public Car(String model) {
         this.model = model;
+    }
+
+    public Car(String model,Double value) {
+        this.model = model;
+        this.value = value;
     }
 
     public String getModel() {
@@ -14,6 +20,14 @@ public class Car implements Comparable<Car> {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
     }
 
     @Override

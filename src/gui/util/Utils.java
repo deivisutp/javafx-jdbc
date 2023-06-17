@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.entities.Car;
+import model.services.CalculationService;
 
 public class Utils {
 
@@ -236,5 +237,25 @@ public class Utils {
 		System.out.println(new File(path + "\\").mkdir());
 
 		return file.getParent();
+	}
+
+	public void importCar(String path) {
+		List<Car> list = new ArrayList<>();
+
+		try (BufferedReader br = new BufferedReader(new FileReader(path))){
+
+			String line = br.readLine();
+			while (line != null) {
+				String[] fields = line.split(",");
+				list.add(new Car(fields[0], Double.parseDouble(fields[1])));
+				line = br.readLine();
+			}
+
+			Car x = CalculationService.max(list);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
