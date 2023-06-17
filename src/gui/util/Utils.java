@@ -258,4 +258,46 @@ public class Utils {
 			e.printStackTrace();
 		}
 	}
+
+	public void copyList() {
+		List<Integer> intList = Arrays.asList(1, 2, 3, 4);
+		List<Double> dobList = Arrays.asList(10.0, 20.0, 30.0, 4.0);
+		List<Object> objList = new ArrayList<>();
+
+		copy(intList, objList);
+		copy(dobList, objList);
+	}
+
+	public void copy(List<? extends Number> source, List<? super Number> destiny) {
+		for (Number number : source) {
+			destiny.add(number);
+		}
+	}
+
+	public void copySetTree(){
+		Set<Integer> a = new TreeSet<>(Arrays.asList(0,2,4,5,6,8,10));
+		Set<Integer> b = new TreeSet<>(Arrays.asList(5,6,7,8,9,10));
+
+		//union
+		Set<Integer> c = new TreeSet<>(a);
+		c.addAll(b);
+		System.out.println(c);
+
+		//intersection
+		Set<Integer> d = new TreeSet<>(a);
+		c.retainAll(b);
+		System.out.println(d);
+
+		//difference
+		Set<Integer> e = new TreeSet<>(a);
+		c.removeAll(b);
+		System.out.println(e);
+	}
+
+	public void compareCar() {
+		Set<Car> set = new HashSet<>();
+		set.add(new Car("Sandero", 90000.00));
+		Car car = new Car("Sandero", 90000.00);
+		System.out.println(set.contains(car));
+	}
 }
