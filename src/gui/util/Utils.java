@@ -7,8 +7,12 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import gui.interfaces.consumer.PriceUpdate;
+import gui.interfaces.predicate.ProductPredicate;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
@@ -17,7 +21,9 @@ import javafx.scene.control.TableColumn;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.entities.Car;
+import model.entities.Product;
 import model.services.CalculationService;
+import model.services.ProductCompareImpl;
 
 public class Utils {
 
@@ -299,5 +305,40 @@ public class Utils {
 		set.add(new Car("Sandero", 90000.00));
 		Car car = new Car("Sandero", 90000.00);
 		System.out.println(set.contains(car));
+	}
+
+	public void compareAndStore() {
+		List<Product> list = new ArrayList<>();
+		list.add(new Product("Prod 1"));
+		list.add(new Product("Prod 2"));
+
+		//1 - frst option
+		list.sort(new ProductCompareImpl());
+
+		//2 - scnd option
+		Comparator<Product> comp = (p1,p2) ->  p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase());
+		list.sort(comp);
+
+		//3 - thrd option
+		list.sort(Utils::comparing);
+
+		//predicate
+		list.removeIf(new ProductPredicate());
+		list.removeIf(Product::staticProductPredicate);
+
+		Predicate<Product> pred = p -> !p.getName().isEmpty();
+		list.removeIf(pred);
+
+		//Consumer 1
+		list.forEach(new PriceUpdate());
+		//Consumer 2
+		Consumer<Product> cons = p -> p.setPrice(p.getPrice() * 1.1);
+		list.forEach(cons);
+		//Consumer 3
+		list.forEach(p -> p.setPrice(p.getPrice() * 1.1));
+	}
+
+	public static int comparing(Product p1, Product p2) {
+		return p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase());
 	}
 }
