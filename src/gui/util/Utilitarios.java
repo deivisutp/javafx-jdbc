@@ -99,11 +99,13 @@ public class Utilitarios {
                                     .sorted(comp.reversed())
                                     .collect(Collectors.toList());
 
+            return  names;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return new ArrayList<>();
     }
 
 }
