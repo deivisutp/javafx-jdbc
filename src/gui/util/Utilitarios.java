@@ -5,11 +5,35 @@ import model.entities.Product;
 import model.services.ProductService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Utilitarios {
+    /*
+     Intermidiate
+      - filter;
+      - map;
+      - flatmap;
+      - peek;
+      - distinct;
+      - sorted;
+      - skip;
+      - limit;
 
+      Terminal
+       - foreach;
+       - foreachordered;
+       - toArray;
+       - reduce;
+       - collect;
+       - anyMatch;
+       - allMatch;
+       - noneMatch;
+       - findFirst;
+       - findAny;
+     */
     public List<Product> convertProduct() {
         //map(function)
         List<Product> list = new ArrayList<>();
@@ -38,4 +62,14 @@ public class Utilitarios {
 
         return list.stream().filter(p -> p.getPrice() < 20.0).collect(Collectors.toList());
     }
+
+    public void streaming() {
+        Stream<Integer> st = Stream.iterate(0, x -> x + 2);
+        System.out.println(Arrays.toString(st.limit(10).toArray()));
+
+        //fibonacci
+        Stream<Long> st2 = Stream.iterate(new Long[] {0L, 1L}, p -> new Long[] {p[1], p[0]+p[1]}).map(p -> p[0]);
+        System.out.println(Arrays.toString(st2.limit(10).toArray()));
+    }
+
 }
