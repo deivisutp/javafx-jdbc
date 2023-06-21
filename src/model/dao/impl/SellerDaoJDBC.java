@@ -94,13 +94,17 @@ public class SellerDaoJDBC implements SellerDao {
 	public void deleteById(Integer id) {
 		PreparedStatement st = null;
 		try {
+			//conn.setAutoCommit(false);
 			st = conn.prepareStatement("DELETE FROM seller WHERE Id = ?");
 			
 			st.setInt(1, id);
 			
-			st.executeUpdate();
+			int rowsAffected = st.executeUpdate();
+
+			//conn.commit();
 		}
 		catch (SQLException e) {
+			//conn.rollback();
 			throw new DbException(e.getMessage());
 		}
 		finally {
